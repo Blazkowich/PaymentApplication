@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PaymentViewModel>
+
+@{
+    ViewData["Title"] = "Payment Details";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Payment Details</h1>
+    <p><a asp-action="Create">Create New Payment</a></p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Payment ID</th>
+            <th>Card Owner Name</th>
+            <th>Card Number</th>
+            <th>Expiration Date</th>
+            <th>Security Code</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var paymentDetail in Model)
+        {
+            <tr>
+                <td>@paymentDetail.PaymentDetailId</td>
+                <td>@paymentDetail.CardOwnerName</td>
+                <td>@paymentDetail.CardNumber</td>
+                <td>@paymentDetail.ExpirationDate</td>
+                <td>@paymentDetail.SecurityCode</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@paymentDetail.PaymentDetailId">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@paymentDetail.PaymentDetailId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@paymentDetail.PaymentDetailId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
