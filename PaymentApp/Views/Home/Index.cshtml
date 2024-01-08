@@ -4,37 +4,123 @@
     ViewData["Title"] = "Payment Details";
 }
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/payment.css" />
+<link rel="stylesheet" href="~/css/Index.css" />
+
 <div class="text-center">
     <h1 class="display-4">Payment Details</h1>
-    <p><a asp-action="Create">Create New Payment</a></p>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Payment ID</th>
-            <th>Card Owner Name</th>
-            <th>Card Number</th>
-            <th>Expiration Date</th>
-            <th>Security Code</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var paymentDetail in Model)
-        {
-            <tr>
-                <td>@paymentDetail.PaymentDetailId</td>
-                <td>@paymentDetail.CardOwnerName</td>
-                <td>@paymentDetail.CardNumber</td>
-                <td>@paymentDetail.ExpirationDate</td>
-                <td>@paymentDetail.SecurityCode</td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@paymentDetail.PaymentDetailId">Details</a> |
-                    <a asp-action="Edit" asp-route-id="@paymentDetail.PaymentDetailId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@paymentDetail.PaymentDetailId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-4 mb-lg-0 mb-3">
+            <div class="card p-3">
+                <div class="img-box-saved">
+                    <img src="https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png" alt="Visa Logo" class="credit-card">
+                </div>
+                <div class="number">
+                    <label class="fw-bold" for="">**** **** **** 1060</label>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <small><span class="fw-bold">Expiry date:</span><span>10/26</span></small>
+                    <small><span class="fw-bold">Name:</span><span>Otar</span></small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-lg-0 mb-3">
+            <div class="card p-3">
+                <div class="card-body">
+                    <p class="mb-0 fw-bold h4">Payment Methods</p>
+                    <hr />
+                    <div class="img-boxo">
+                        <img src="https://freepngimg.com/save/25826-major-credit-card-logo-image/1440x335" alt="Visa Logo" class="credit-card-logoo">
+                    </div>
+                </div>
+            </div>
+            <div class="card p-3">
+                <div class="card-body border p-0">
+                    <p>
+                        <a class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
+                           data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
+                           aria-controls="collapseExample">
+                            <span class="fw-bold">Credit Card</span>
+                        </a>
+                    </p>
+                    <div class="collapse show p-3 pt-0 align-items-center" id="collapseExample">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <form action="" class="form" id="paymentForm">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form__div">
+                                                <input type="text" class="form-control" placeholder=" ">
+                                                <label for="" class="form__label">Card Number</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form__div">
+                                                <input type="text" class="form-control" placeholder=" ">
+                                                <label for="" class="form__label">MM/yy</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <div class="form__div">
+                                                <input type="password" class="form-control" placeholder=" ">
+                                                <label for="" class="form__label">CVV</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form__div">
+                                                <input type="text" class="form-control" placeholder=" ">
+                                                <label for="" class="form__label">Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="btn btn-primary w-100" id="submitBtn">Submit</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        // Handle form submission
+        $("#submitBtn").click(function () {
+            // Serialize form data
+            var formData = $("#paymentForm").serialize();
+
+            // Send data to the Create method using AJAX
+            $.ajax({
+                type: "POST",
+                url: "/Home/Create", // Ensure the URL is correct based on your controller and route
+                data: formData,
+                contentType: "application/x-www-form-urlencoded", // Set the content type
+                success: function (result) {
+                    // Handle success (if needed)
+                    console.log(result);
+                },
+                error: function (error) {
+                    // Handle errors (if needed)
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+</script>
+

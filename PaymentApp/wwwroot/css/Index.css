@@ -1,0 +1,24 @@
+﻿.img-boxo {
+    width: 400px;
+    height: auto;
+    margin: 0 auto; /* Add this to center horizontally */
+    display: flex;
+    justify-content: center; /* Add this to center horizontally */
+    align-items: center;
+}
+
+.credit-card-logoo {
+    width: 400px;
+    height: auto;
+    align-items: center;
+}
+
+.container.card.img-box-savedo {
+    width: 80px;
+    height: 50px;
+}
+
+.credit-card {
+    width: 80px;
+    height: 50px;
+}

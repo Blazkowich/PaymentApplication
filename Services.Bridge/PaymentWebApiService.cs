@@ -1,7 +1,5 @@
 ﻿using Services.Models;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace Services.Bridge
 {
@@ -21,41 +19,42 @@ namespace Services.Bridge
                 var response = await _httpClient.GetAsync("api/payments");
                 response.EnsureSuccessStatusCode();
                 var paymentDetails = await response.Content.ReadFromJsonAsync<IEnumerable<PaymentDetailModel>>();
-                return paymentDetails;
+                return paymentDetails!;
             }
             catch (Exception ex)
             {
-                // Log the exception details
                 Console.WriteLine($"Exception: {ex.Message}");
-                throw; // Re-throw the exception to propagate it
+                throw;
             }
-
         }
-
-
-
-        public async Task<PaymentDetailModel> PostPaymentDetail(PaymentDetailModel paymentDetail)
-        {
-            var response = await _httpClient.PostAsJsonAsync("addPayment", paymentDetail); // Updated endpoint
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<PaymentDetailModel>();
-        }
-
         public async Task<PaymentDetailModel> GetPaymentDetail(int id)
         {
-            var response = await _httpClient.GetFromJsonAsync<PaymentDetailModel>($"getPayment/{id}"); // Updated endpoint
-            return response;
+            var response = await _httpClient.GetFromJsonAsync<PaymentDetailModel>($"getPayment/{id}");
+            return response!;
+        }
+        public async Task<PaymentDetailModel> PostPaymentDetail(PaymentDetailModel paymentDetail)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/payments", paymentDetail);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error: {errorMessage}");
+            }
+
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadFromJsonAsync<PaymentDetailModel>();
+
+            return result;
+        }
+        public async Task PutPaymentDetail(int id, PaymentDetailModel paymentDetail)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"updatePayment/{id}", paymentDetail);
+            response.EnsureSuccessStatusCode();
         }
 
         public async Task DeletePaymentDetail(int id)
         {
-            var response = await _httpClient.DeleteAsync($"removePayment/{id}"); // Updated endpoint
-            response.EnsureSuccessStatusCode();
-        }
-
-        public async Task PutPaymentDetail(int id, PaymentDetailModel paymentDetail)
-        {
-            var response = await _httpClient.PutAsJsonAsync($"updatePayment/{id}", paymentDetail); // Updated endpoint
+            var response = await _httpClient.DeleteAsync($"removePayment/{id}");
             response.EnsureSuccessStatusCode();
         }
     }

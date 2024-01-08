@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\Index.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Services.Bridge\Services.Bridge.csproj" />
     <ProjectReference Include="..\Services.Database\Services.Database.csproj" />
     <ProjectReference Include="..\Services.Models\Services.Models.csproj" />
