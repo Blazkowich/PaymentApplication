@@ -1,24 +1,32 @@
 ﻿.img-boxo {
-    width: 400px;
+    max-width: 100%;
     height: auto;
-    margin: 0 auto; /* Add this to center horizontally */
+    margin: 0 auto;
     display: flex;
-    justify-content: center; /* Add this to center horizontally */
+    justify-content: center;
     align-items: center;
 }
 
 .credit-card-logoo {
-    width: 400px;
+    max-width: 100%;
     height: auto;
     align-items: center;
 }
 
 .container.card.img-box-savedo {
-    width: 80px;
-    height: 50px;
+    max-width: 100%;
+    height: auto;
 }
 
 .credit-card {
-    width: 80px;
-    height: 50px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Additional CSS for smaller screens */
+@media (max-width: 767px) {
+    .img-boxo {
+        height: 100px; /* Adjust this value as needed */
+        overflow: hidden;
+    }
 }
